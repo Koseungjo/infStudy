@@ -4,3 +4,17 @@ server:
 spring:
   messages:
     basename: messages
+  security:
+    user:
+      name: rhtmdwh
+      password: tmdwh741
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
