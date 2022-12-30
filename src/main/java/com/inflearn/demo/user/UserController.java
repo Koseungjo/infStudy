@@ -1,7 +1,5 @@
 package com.inflearn.demo.user;
 
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +9,6 @@ import java.net.URI;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class UserController {
@@ -22,28 +19,28 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public List<User> allUser(){
+    public List<Users> allUser(){
         return service.findAll();
     }
 
     @GetMapping("/users/{id}")
-    public User selectUser(@PathVariable int id) {
-        User user = service.findOne(id);
+    public Users selectUser(@PathVariable int id) {
+        Users users = service.findOne(id);
 
-        if (user == null){
+        if (users == null){
             throw new UserNotFoundException(String.format("ID[%S] not found", id));
         }
 
-        return user;
+        return users;
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> createUser(@Validated @RequestBody User user){
-        User createUser = service.save(user);
+    public ResponseEntity<Users> createUser(@Validated @RequestBody Users users){
+        Users createUsers = service.save(users);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(createUser.getId())
+                .buildAndExpand(createUsers.getId())
                 .toUri();
 
         return ResponseEntity.created(location).build();
@@ -51,9 +48,9 @@ public class UserController {
 
     @DeleteMapping("/users/{id}")
     public void deleteUser(@PathVariable int id){
-        User deleteUser = service.deleteById(id);
+        Users deleteUsers = service.deleteById(id);
 
-        if(deleteUser == null){
+        if(deleteUsers == null){
             throw new UserNotFoundException(String.format("ID[%s] not found",id));
         }
     }

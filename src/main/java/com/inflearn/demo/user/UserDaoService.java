@@ -9,45 +9,45 @@ import java.util.List;
 
 @Service
 public class UserDaoService {
-    private static List<User> users = new ArrayList<>();
+    private static List<Users> users = new ArrayList<>();
     private static int usersCount = 3;
 
     static {
-        users.add(new User(1,"rhtmdwh1",new Date(),"pass1","980420-1111111"));
-        users.add(new User(2,"rhtmdwh2",new Date(),"pass2","980420-2222222"));
-        users.add(new User(3,"rhtmdwh3",new Date(),"pass3","980420-3333333"));
+        users.add(new Users(1,"rhtmdwh1",new Date(),"pass1","980420-1111111"));
+        users.add(new Users(2,"rhtmdwh2",new Date(),"pass2","980420-2222222"));
+        users.add(new Users(3,"rhtmdwh3",new Date(),"pass3","980420-3333333"));
     }
 
-    public List<User> findAll(){
+    public List<Users> findAll(){
         return users;
     }
 
-    public User save(User user){
-        if (user.getId() == null){
-            user.setId(++usersCount);
-            users.add(user);
+    public Users save(Users users){
+        if (users.getId() == null){
+            users.setId(++usersCount);
+            UserDaoService.users.add(users);
         }
-        return user;
+        return users;
     }
 
-    public User findOne(int id){
-        for (User user : users){
-            if(user.getId() == id){
-                return user;
+    public Users findOne(int id){
+        for (Users users : UserDaoService.users){
+            if(users.getId() == id){
+                return users;
             }
         }
         return null;
     }
 
-    public User deleteById(int id){
-        Iterator<User> iterator = users.iterator();
+    public Users deleteById(int id){
+        Iterator<Users> iterator = users.iterator();
 
         while (iterator.hasNext()){
-            User user = iterator.next();
+            Users users = iterator.next();
 
-            if (user.getId() == id){
+            if (users.getId() == id){
                 iterator.remove();
-                return user;
+                return users;
             }
         }
 

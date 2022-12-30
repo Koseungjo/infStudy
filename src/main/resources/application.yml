@@ -4,11 +4,22 @@ server:
 spring:
   messages:
     basename: messages
+
   security:
     user:
       name: rhtmdwh
       password: tmdwh741
 
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
